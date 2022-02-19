@@ -5,16 +5,25 @@ import static serenitylabs.tutorials.vetclinic.playingball.model.Game.*;
 public class Child {
 
     public void goPlay(Game game) {
-        if (game == Football) {
-            System.out.print("Kick the ball");
-        } else if (game == Tennis) {
-            System.out.print("Serve the ball");
-        } else if (game == Cricket) {
-            System.out.print("Hit the wicket");
-        } else if (game == Handball) {
-            System.out.print("Throw the ball");
-        } else if (game == Hockey) {
-            System.out.print("Hit the ball with the stick");
+        Player gameToPlay = gameCalled(game);
+        gameToPlay.play();
+    }
+
+    private Player gameCalled(Game game){
+        switch(game) {
+            case Football:
+                return new PlayFootball();
+            case Tennis:
+                return new PlayTennis();
+            case Cricket:
+                return new PlayCricket();
+            case Handball:
+                return new PlayHandball();
+            case Hockey:
+                return new PlayHockey();
+            default:
+                throw new DontKnowThatGameException("Dont know the game");
         }
     }
+
 }
