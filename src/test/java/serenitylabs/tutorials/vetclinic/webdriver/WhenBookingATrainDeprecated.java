@@ -21,7 +21,7 @@ import static org.hamcrest.core.Is.is;
 import static serenitylabs.tutorials.vetclinic.webdriver.DeparturePreference.ArriveBefore;
 import static serenitylabs.tutorials.vetclinic.webdriver.DeparturePreference.LeaveAfter;
 
-public class WhenBookingATrain {
+public class WhenBookingATrainDeprecated {
     WebDriver driver;
 
     @Before
