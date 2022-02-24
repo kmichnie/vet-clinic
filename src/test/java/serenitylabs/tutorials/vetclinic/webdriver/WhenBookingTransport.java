@@ -21,37 +21,33 @@ public class WhenBookingTransport {
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
-        driver.get("https://transportnsw.info/");
+        driver.get("https://www.thetrainline.com/");
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
     }
 
     @Test
     public void should_be_able_to_check_trip_options() {
 
-        WebElement moreTravelOptions = driver.findElement(By.xpath("//button[text()='More options']"));
-        moreTravelOptions.click();
+        WebElement acceptCookies = driver.findElement(By.id("onetrust-accept-btn-handler"));
+        acceptCookies.click();
 
-        WebElement fromLocation = driver.findElement(By.id("tniFromTripLocation"));
-        fromLocation.click();
-        fromLocation.clear();
-        fromLocation.sendKeys("Town Hall");
+        WebElement fromLocation = driver.findElement(By.id("from.search"));
+        fromLocation.sendKeys("Warsaw");
         fromLocation.sendKeys(Keys.ENTER);
 
 
-        WebElement destinationLocation = driver.findElement(By.id("tniToTripLocation"));
-        destinationLocation.sendKeys("Parramatta");
+        WebElement destinationLocation = driver.findElement(By.id("to.search"));
+        destinationLocation.sendKeys("Berlin");
+        fromLocation.sendKeys(Keys.ENTER);
 
-        WebElement pickProperDestination = driver.findElement(By.xpath("//*[contains(@class, 'ng-star-inserted')]//*[text() = 'Parramatta Station']"));
-        pickProperDestination.click();
+        WebElement openDepartureDatePicker = driver.findElement(By.id("page.journeySearchForm.outbound.title"));
+        openDepartureDatePicker.click();
 
+        new Select(driver.findElement(By.cssSelector("fieldset[data-test='outbound-datepicker'] select[name='hours']"))).selectByIndex(10);
+        new Select(driver.findElement(By.cssSelector("fieldset[data-test='outbound-datepicker'] select[name='minutes']"))).selectByIndex(2);
 
-
-        WebElement openTimeSettings = driver.findElement(By.cssSelector("[aria-labelledby='icon-85'"));
-        openTimeSettings.click();
-
-        new Select(driver.findElement(By.id("search-select-date"))).selectByIndex(1);
-
-
+        WebElement getTimesAndTickets = driver.findElement(By.cssSelector("button[type='submit']"));
+        getTimesAndTickets.click();
 
     }
 }
