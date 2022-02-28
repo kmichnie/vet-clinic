@@ -12,6 +12,9 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class WhenBookingTransport {
 
     WebDriver driver;
@@ -43,11 +46,29 @@ public class WhenBookingTransport {
         WebElement openDepartureDatePicker = driver.findElement(By.id("page.journeySearchForm.outbound.title"));
         openDepartureDatePicker.click();
 
+        WebElement setDepartureDate = driver.findElement(By.id("page.journeySearchForm.outbound.title3-7"));
+        setDepartureDate.click();
+
         new Select(driver.findElement(By.cssSelector("fieldset[data-test='outbound-datepicker'] select[name='hours']"))).selectByIndex(10);
         new Select(driver.findElement(By.cssSelector("fieldset[data-test='outbound-datepicker'] select[name='minutes']"))).selectByIndex(2);
 
-        WebElement getTimesAndTickets = driver.findElement(By.cssSelector("button[type='submit']"));
-        getTimesAndTickets.click();
+        WebElement getAvailableTravelOptions = driver.findElement(By.cssSelector("button[type='submit']"));
+        getAvailableTravelOptions.click();
+
+        // $$("div [data-test='eu-matrix-date']")
+        // $x("//*[@data-test='eu-matrix-date']//span[text()='Mon']")
+        WebElement shortDayName = driver.findElement(By.xpath("//*[@data-test='eu-matrix-date']//span[text()='Mon']"));
+        WebElement dayOfMonth = driver.findElement(By.xpath("//*[@data-test='eu-matrix-date']//span[text()='7']"));
+        WebElement shortMonthName = driver.findElement(By.xpath("//*[@data-test='eu-matrix-date']//span[text()='Mar']"));
+        WebElement year = driver.findElement(By.xpath("//*[@data-test='eu-matrix-date']//span[text()='2022']"));
+
+
+        assertThat(shortDayName.getText(), equalTo("Mon"));
+        assertThat(dayOfMonth.getText(), equalTo("7"));
+        assertThat(shortMonthName.getText(), equalTo("Mar"));
+        assertThat(year.getText(), equalTo("2022"));
+
+
 
     }
 }
